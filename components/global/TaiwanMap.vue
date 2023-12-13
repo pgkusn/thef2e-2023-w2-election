@@ -6,29 +6,72 @@ const props = defineProps({
   },
 })
 
-const fillColor = () => {
+const tooltipInfo = ref({
+  isShow: false,
+  left: 0,
+  top: 0,
+  message: '',
+})
+
+const init = () => {
   for (const [key, value] of Object.entries(props.data)) {
+    // fill color
     document
       .querySelectorAll(`[data-name=${key}], g[data-name=${key}]>path, g[data-name=${key}]>polygon`)
       .forEach(el => {
         el.style.stroke = '#fff'
-        el.style.fill = value
+        el.style.fill = value.partyColor
       })
+
+    document
+      .querySelector(`[data-name=${key}]`)
+      .addEventListener('mousemove', e => handleMouseMove(e, value))
+    document
+      .querySelector(`[data-name=${key}]`)
+      .addEventListener('mouseleave', e => handleMouseLeave(e, value))
   }
+}
+const handleMouseMove = (e, value) => {
+  const el = e.currentTarget
+  const { city, partyName, votes } = value
+
+  // fill color
+  if (el.tagName === 'g') {
+    el.querySelectorAll('path, polygon').forEach(el => {
+      el.style.fill = '#94A3B8'
+    })
+  } else {
+    el.style.fill = '#94A3B8'
+  }
+
+  tooltipInfo.value.left = e.pageX + 30
+  tooltipInfo.value.top = e.pageY
+  tooltipInfo.value.message = `${city}最高票數為${partyName}，共獲得 ${votes.toLocaleString()} 票`
+  tooltipInfo.value.isShow = true
+}
+const handleMouseLeave = (e, value) => {
+  const el = e.currentTarget
+
+  // fill color
+  if (el.tagName === 'g') {
+    el.querySelectorAll('path, polygon').forEach(p => {
+      p.style.fill = value.partyColor
+    })
+  } else {
+    el.style.fill = value.partyColor
+  }
+
+  tooltipInfo.value.message = ''
+  tooltipInfo.value.isShow = false
 }
 
 onMounted(() => {
-  fillColor()
+  init()
 })
 </script>
 
 <template>
-  <svg
-    id="f644d98c-7d0e-4cbb-84d4-fc25de985f21"
-    data-name="taiwan-map"
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 333 479"
-  >
+  <svg viewBox="0 0 333 479">
     <g id="f7bd2e4d-6fdf-4c25-8f4a-fc31d9d7be28" data-name="pen">
       <rect
         id="ba49ed57-b579-45cb-9a49-b52d0b986b78"
@@ -279,4 +322,15 @@ onMounted(() => {
       style="fill: #fff; stroke: #94a3b8; stroke-linecap: round; stroke-linejoin: round"
     />
   </svg>
+
+  <!-- tooltip -->
+  <Teleport to="body">
+    <div
+      v-show="tooltipInfo.isShow"
+      class="absolute z1 p2 bg-#222 text-white break-all rounded"
+      :style="{ left: `${tooltipInfo.left}px`, top: `${tooltipInfo.top}px` }"
+    >
+      <p>{{ tooltipInfo.message }}</p>
+    </div>
+  </Teleport>
 </template>

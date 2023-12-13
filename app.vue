@@ -1,13 +1,23 @@
 <script setup>
-import { useVoteStore } from '@/stores/vote'
-
 useHead({
   title: '2020臺灣總統大選情報站',
+  link: [
+    { rel: 'apple-touch-icon', sizes: '76x76', href: '/images/apple-touch-icon.png' },
+    { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/images/favicon-32x32.png' },
+    { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/images/favicon-16x16.png' },
+  ],
 })
 
-const voteStore = useVoteStore()
+const route = useRoute()
 
-await voteStore.getVotes()
+const isShowNav = ref(false)
+
+watch(
+  () => route.name,
+  () => {
+    isShowNav.value = false
+  }
+)
 </script>
 
 <template>
@@ -23,6 +33,7 @@ await voteStore.getVotes()
         <Icon name="Menu" size="24px" />
       </label>
       <input
+        v-model="isShowNav"
         type="checkbox"
         id="nav-toggle"
         class="hidden [&+nav]:checked:h22 md:[&+nav]:checked:h-auto"
@@ -31,12 +42,12 @@ await voteStore.getVotes()
         class="absolute top-full inset-x-0 z1 bg-theme-warning h0 overflow-hidden transition-all [&>a]:(block px4 py2 text-theme-primary) [&>a.router-link-active]:text-#222 md:(h-auto flex items-center static)"
       >
         <NuxtLink to="/">開票即時報</NuxtLink>
-        <NuxtLink to="/city" class="pointer-events-none">縣市選情版圖 (敬請期待)</NuxtLink>
+        <NuxtLink to="/city">縣市選情版圖</NuxtLink>
       </nav>
     </div>
   </header>
 
-  <main class="container flex-grow py5.5 md:my6">
+  <main class="container flex-grow py5.5 md:py6">
     <NuxtPage />
   </main>
 
@@ -55,6 +66,6 @@ await voteStore.getVotes()
   flex-direction: column;
 }
 section > h1 {
-  @apply flex items-center gap-x-2 text-6 font-700;
+  @apply flex items-center gap-x-2 text-6 font-700 leading-7.5;
 }
 </style>

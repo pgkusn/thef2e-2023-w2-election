@@ -34,7 +34,7 @@ defineProps({
         </li>
         <li class="text-5 font-700 flex-shrink-0 w50">
           <p>得票數：{{ item.vote }} 票</p>
-          <p class="mt2">得票率：{{ item.rate }}%</p>
+          <p class="mt2">得票率：{{ item.rate }}</p>
         </li>
         <li class="hidden bg-#E9ECEF rounded-2 flex-grow h8 overflow-hidden 2xl:block">
           <div

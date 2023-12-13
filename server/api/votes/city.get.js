@@ -1,16 +1,10 @@
 export default defineEventHandler(async event => {
+  // TODO: remove this
+  console.log('get all city votes')
+
+  // await new Promise(resolve => setTimeout(resolve, 2000))
+
   return [
-    {
-      city_code: 'all',
-      city_name: '總計',
-      candidate_1: '608590',
-      candidate_2: '5522119',
-      candidate_3: '8170231',
-      valid_votes: '14300940',
-      invalid_votes: '163631',
-      votes: '14464571',
-      rate: '74.9029',
-    },
     {
       city_code: 'tpe',
       city_name: '臺北市',
@@ -133,7 +127,7 @@ export default defineEventHandler(async event => {
       rate: '71.6457',
     },
     {
-      city_code: 'cyi',
+      city_code: 'cyq',
       city_name: '嘉義縣',
       candidate_1: '11138',
       candidate_2: '98810',
@@ -221,7 +215,7 @@ export default defineEventHandler(async event => {
       rate: '76.5973',
     },
     {
-      city_code: 'cyq',
+      city_code: 'cyi',
       city_name: '嘉義市',
       candidate_1: '6204',
       candidate_2: '56269',

@@ -1,6 +1,5 @@
-import { keyBy } from 'lodash-es'
-
 export const useVoteStore = defineStore('vote', () => {
+  // 候選人
   const candidateList = [
     {
       no: 1,
@@ -8,6 +7,7 @@ export const useVoteStore = defineStore('vote', () => {
       partyId: 1,
       partyColor: '#FBD189',
       partyName: '金色曠野同盟',
+      partyShortName: '野',
     },
     {
       no: 2,
@@ -15,6 +15,7 @@ export const useVoteStore = defineStore('vote', () => {
       partyId: 2,
       partyColor: '#97C6ED',
       partyName: '蔚藍海岸陣線',
+      partyShortName: '海',
     },
     {
       no: 3,
@@ -22,34 +23,66 @@ export const useVoteStore = defineStore('vote', () => {
       partyId: 3,
       partyColor: '#B8D8BA',
       partyName: '鬱蔥雨林聯盟',
+      partyShortName: '林',
     },
   ]
-  const voteData = ref(null)
-  const mapData = computed(() => {
-    if (!voteData.value) return {}
-    const groupByCity = keyBy(voteData.value.city, 'cityCode')
-    return Object.entries(groupByCity).reduce((acc, [key, value]) => {
-      const winner = value.candidate.findIndex(c => c === Math.max(...value.candidate))
-      acc[key] = candidateList[winner].partyColor
-      return acc
-    }, {})
-  })
+  // 總得票數
+  const totalVotes = ref(null)
+  // 各縣市得票數
+  const allCityVotes = ref(null)
+  // 單一縣市與行政區得票數
+  const cityVotes = ref(null)
 
-  const getVotes = async () => {
-    const { data, error } = await useFetch('/api/votes')
+  /**
+   * 取得總得票數
+   */
+  const getTotalVotes = async () => {
+    if (totalVotes.value) return
+    const { data, error } = await useFetch('/api/votes/all')
     if (!data.value) {
       throw createError({
         statusCode: error.value.statusCode,
         statusMessage: error.value.statusMessage,
       })
     }
-    voteData.value = adapter.getVotes(data.value)
+    totalVotes.value = apiAdapter.getTotalVotes(data.value)
+  }
+  /**
+   * 取得各縣市得票數
+   */
+  const getAllCityVotes = async () => {
+    if (allCityVotes.value) return
+    const { data, error } = await useFetch('/api/votes/city')
+    if (!data.value) {
+      throw createError({
+        statusCode: error.value.statusCode,
+        statusMessage: error.value.statusMessage,
+      })
+    }
+    allCityVotes.value = apiAdapter.getAllCityVotes(data.value)
+  }
+  /**
+   * 取得單一縣市與行政區得票數
+   * @param {string} city 縣市代碼
+   */
+  const getCityVotes = async city => {
+    const { data, error } = await useFetch(`/api/votes/${city}`)
+    if (!data.value) {
+      throw createError({
+        statusCode: error.value.statusCode,
+        statusMessage: error.value.statusMessage,
+      })
+    }
+    cityVotes.value = apiAdapter.getCityVotes(data.value)
   }
 
   return {
     candidateList,
-    voteData,
-    mapData,
-    getVotes,
+    allCityVotes,
+    cityVotes,
+    totalVotes,
+    getTotalVotes,
+    getAllCityVotes,
+    getCityVotes,
   }
 })
