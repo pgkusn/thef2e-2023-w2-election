@@ -13,29 +13,27 @@ const tooltipInfo = ref({
   message: '',
 })
 
-const init = () => {
+const fillColor = () => {
   for (const [key, value] of Object.entries(props.data)) {
-    // fill color
     document
       .querySelectorAll(`[data-name=${key}], g[data-name=${key}]>path, g[data-name=${key}]>polygon`)
       .forEach(el => {
         el.style.stroke = '#fff'
         el.style.fill = value.partyColor
       })
-
-    document
-      .querySelector(`[data-name=${key}]`)
-      .addEventListener('mousemove', e => handleMouseMove(e, value))
-    document
-      .querySelector(`[data-name=${key}]`)
-      .addEventListener('mouseleave', e => handleMouseLeave(e, value))
+  }
+}
+const bindEvent = () => {
+  for (const [key, value] of Object.entries(props.data)) {
+    const el = document.querySelector(`[data-name=${key}]`)
+    el.addEventListener('mousemove', e => handleMouseMove(e, value))
+    el.addEventListener('mouseleave', e => handleMouseLeave(e, value))
   }
 }
 const handleMouseMove = (e, value) => {
   const el = e.currentTarget
   const { city, partyName, votes } = value
 
-  // fill color
   if (el.tagName === 'g') {
     el.querySelectorAll('path, polygon').forEach(el => {
       el.style.fill = '#94A3B8'
@@ -52,7 +50,6 @@ const handleMouseMove = (e, value) => {
 const handleMouseLeave = (e, value) => {
   const el = e.currentTarget
 
-  // fill color
   if (el.tagName === 'g') {
     el.querySelectorAll('path, polygon').forEach(p => {
       p.style.fill = value.partyColor
@@ -66,7 +63,8 @@ const handleMouseLeave = (e, value) => {
 }
 
 onMounted(() => {
-  init()
+  fillColor()
+  bindEvent()
 })
 </script>
 
