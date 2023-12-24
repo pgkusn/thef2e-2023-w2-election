@@ -1,14 +1,4 @@
 export default defineEventHandler(async event => {
-  // TODO: remove this
-  console.log('get city list')
-
-  // throw createError({
-  //   statusCode: 500,
-  //   statusMessage: 'Internal Server Error',
-  // })
-
-  // await new Promise(resolve => setTimeout(resolve, 2000))
-
   return [
     {
       CityID: 'A',

@@ -1,15 +1,19 @@
-<script setup>
+<script lang="ts" setup>
 import { keyBy } from 'lodash-es'
+import * as Types from '@/types'
 
 const voteStore = useVoteStore()
 
 await Promise.all([voteStore.getTotalVotes(), voteStore.getAllCityVotes()])
 
-const { totalVotes, allCityVotes } = storeToRefs(voteStore)
+const { totalVotes, allCityVotes } = storeToRefs(voteStore) as {
+  totalVotes: Ref<Types.TotalVotes>
+  allCityVotes: Ref<Types.AllCityVotes[]>
+}
 
 const mapData = computed(() => {
-  const groupByCity = keyBy(allCityVotes.value, 'cityCode')
-  return Object.entries(groupByCity).reduce((acc, [key, value]) => {
+  const groupByCity = keyBy(allCityVotes.value, 'cityCode') as unknown as Types.CityGroup
+  return Object.entries(groupByCity).reduce((acc: Types.MapData, [key, value]) => {
     const winner = value.candidate.findIndex(c => c === Math.max(...value.candidate))
     acc[key] = {
       city: value.cityName,

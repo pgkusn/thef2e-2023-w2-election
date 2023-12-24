@@ -1,11 +1,13 @@
+import * as Types from '@/types'
+
 export const apiAdapter = {
-  getCities(data) {
+  getCities(data: Types.ApiCity[]) {
     return data.map(v => ({
       name: v.CityName,
       value: v.CityCode.toLowerCase(),
     }))
   },
-  getTotalVotes(data) {
+  getTotalVotes(data: Types.ApiAllVote) {
     return {
       validVotes: Number(data.valid_votes),
       invalidVotes: Number(data.invalid_votes),
@@ -14,7 +16,7 @@ export const apiAdapter = {
       candidate: [Number(data.candidate_1), Number(data.candidate_2), Number(data.candidate_3)],
     }
   },
-  getAllCityVotes(data) {
+  getAllCityVotes(data: Types.ApiAllCityVote[]) {
     return data.map(v => ({
       cityCode: v.city_code,
       cityName: v.city_name,
@@ -25,7 +27,7 @@ export const apiAdapter = {
       candidate: [Number(v.candidate_1), Number(v.candidate_2), Number(v.candidate_3)],
     }))
   },
-  getCityVotes(data) {
+  getCityVotes(data: Types.ApiCityVote) {
     return {
       cityCode: data.city_code,
       cityName: data.city_name,

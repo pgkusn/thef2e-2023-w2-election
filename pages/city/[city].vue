@@ -1,10 +1,14 @@
-<script setup>
+<script lang="ts" setup>
+import * as Types from '@/types'
+
 const voteStore = useVoteStore()
 const route = useRoute()
 
-await voteStore.getCityVotes(route.params.city)
+await voteStore.getCityVotes(route.params.city as string)
 
-const { cityVotes } = storeToRefs(voteStore)
+const { cityVotes } = storeToRefs(voteStore) as {
+  cityVotes: Ref<Types.CityVotes>
+}
 
 const pieChartData = computed(() => {
   return cityVotes.value.candidate.map((votes, index) => ({

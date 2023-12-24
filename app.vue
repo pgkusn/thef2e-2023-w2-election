@@ -1,4 +1,4 @@
-<script setup>
+<script lang="ts" setup>
 useHead({
   title: '2020臺灣總統大選情報站',
   link: [

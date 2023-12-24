@@ -1,9 +1,4 @@
 export default defineEventHandler(async event => {
-  // TODO: remove this
-  console.log('get all city votes')
-
-  // await new Promise(resolve => setTimeout(resolve, 2000))
-
   return [
     {
       city_code: 'tpe',

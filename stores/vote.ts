@@ -1,3 +1,5 @@
+import * as Types from '@/types'
+
 export const useVoteStore = defineStore('vote', () => {
   // 候選人
   const candidateList = [
@@ -27,18 +29,21 @@ export const useVoteStore = defineStore('vote', () => {
     },
   ]
   // 總得票數
-  const totalVotes = ref(null)
+  const totalVotes = ref<Types.TotalVotes>()
   // 各縣市得票數
-  const allCityVotes = ref(null)
+  const allCityVotes = ref<Types.AllCityVotes[]>()
   // 單一縣市與行政區得票數
-  const cityVotes = ref(null)
+  const cityVotes = ref<Types.CityVotes>()
 
   /**
    * 取得總得票數
    */
   const getTotalVotes = async () => {
     if (totalVotes.value) return
-    const { data, error } = await useFetch('/api/votes/all')
+    const { data, error } = (await useFetch('/api/votes/all')) as {
+      data: Ref<Types.ApiAllVote>
+      error: Ref<Types.FetchError>
+    }
     if (!data.value) {
       throw createError({
         statusCode: error.value.statusCode,
@@ -52,7 +57,10 @@ export const useVoteStore = defineStore('vote', () => {
    */
   const getAllCityVotes = async () => {
     if (allCityVotes.value) return
-    const { data, error } = await useFetch('/api/votes/city')
+    const { data, error } = (await useFetch('/api/votes/city')) as {
+      data: Ref<Types.ApiAllCityVote[]>
+      error: Ref<Types.FetchError>
+    }
     if (!data.value) {
       throw createError({
         statusCode: error.value.statusCode,
@@ -65,8 +73,11 @@ export const useVoteStore = defineStore('vote', () => {
    * 取得單一縣市與行政區得票數
    * @param {string} city 縣市代碼
    */
-  const getCityVotes = async city => {
-    const { data, error } = await useFetch(`/api/votes/${city}`)
+  const getCityVotes = async (city: string) => {
+    const { data, error } = (await useFetch(`/api/votes/${city}`)) as {
+      data: Ref<Types.ApiCityVote>
+      error: Ref<Types.FetchError>
+    }
     if (!data.value) {
       throw createError({
         statusCode: error.value.statusCode,

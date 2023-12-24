@@ -1,7 +1,4 @@
 export default defineEventHandler(async event => {
-  // TODO: remove this
-  console.log('get total votes')
-
   return {
     candidate_1: '608590',
     candidate_2: '5522119',

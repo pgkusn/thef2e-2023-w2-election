@@ -1,10 +1,9 @@
-<script setup>
-const props = defineProps({
-  data: {
-    type: Object,
-    default: () => ({}),
-  },
-})
+<script lang="ts" setup>
+import * as Types from '@/types'
+
+const props = defineProps<{
+  data: Types.Card
+}>()
 
 const pieChartData = computed(() => {
   return props.data.candidate.map(candidate => ({

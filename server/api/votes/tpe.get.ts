@@ -1,7 +1,4 @@
 export default defineEventHandler(async event => {
-  // TODO: remove this
-  console.log('get city votes')
-
   return {
     city_code: 'tpe',
     city_name: '臺北市',

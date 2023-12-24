@@ -1,15 +1,14 @@
-<script setup>
-defineProps({
-  cities: {
-    type: Array,
-    default: () => [],
-  },
-})
+<script lang="ts" setup>
+import * as Types from '@/types'
+
+defineProps<{
+  cities: Types.City[]
+}>()
 
 const route = useRoute()
 const router = useRouter()
 
-const currentCity = ref('')
+const currentCity = ref<string>('')
 
 const search = () => {
   router.push(`/city/${currentCity.value}`)
@@ -21,7 +20,7 @@ const reset = () => {
 
 watchEffect(() => {
   if (route.params.city) {
-    currentCity.value = route.params.city
+    currentCity.value = route.params.city as string
   }
 })
 </script>

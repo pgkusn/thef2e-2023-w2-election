@@ -1,9 +1,13 @@
-<script setup>
+<script lang="ts" setup>
+import * as Types from '@/types'
+
 const globalStore = useGlobalStore()
 
 await globalStore.getCities()
 
-const { cities } = storeToRefs(globalStore)
+const { cities } = storeToRefs(globalStore) as {
+  cities: Ref<Types.City[]>
+}
 </script>
 
 <template>
