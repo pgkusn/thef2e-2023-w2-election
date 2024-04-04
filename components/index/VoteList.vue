@@ -31,7 +31,7 @@ defineProps({
           <div
             class="h-full text-3.5 font-800 text-white text-center leading-8 whitespace-nowrap px2"
             :class="`bg-party-${item.partyId}`"
-            :style="{ width: `${item.rate}%` }"
+            :style="{ width: item.rate }"
           >
             {{ item.rate }}%
           </div>
