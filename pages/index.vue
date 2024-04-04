@@ -36,7 +36,7 @@ const listData = computed(() => {
     partyId: voteStore.candidateList[index].partyId,
     name: voteStore.candidateList[index].name,
     vote: vote.toLocaleString(),
-    rate: rateFormat((vote / totalVotes.value.votes) * 100),
+    rate: rateFormat((vote / totalVotes.value.validVotes) * 100),
   }))
 })
 </script>

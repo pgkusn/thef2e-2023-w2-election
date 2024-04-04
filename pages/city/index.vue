@@ -25,15 +25,13 @@ const mapData = computed(() => {
   }, {})
 })
 const barChartData = computed(() => {
-  return allCityVotes.value.map(item => {
-    return {
-      name: item.cityName,
-      candidate: item.candidate.map((votes, index) => ({
-        partyColor: voteStore.candidateList[index].partyColor,
-        votes,
-      })),
-    }
-  })
+  return allCityVotes.value.map(item => ({
+    name: item.cityName,
+    candidate: item.candidate.map((votes, index) => ({
+      partyColor: voteStore.candidateList[index].partyColor,
+      votes,
+    })),
+  }))
 })
 const cardData = computed(() => {
   return allCityVotes.value.map(item => {
@@ -47,7 +45,7 @@ const cardData = computed(() => {
         partyName: voteStore.candidateList[index].partyShortName,
         partyColor: voteStore.candidateList[index].partyColor,
         name: voteStore.candidateList[index].name,
-        percent: index === 0 ? 0 : rateFormat((votes / item.votes) * 100),
+        percent: index === 0 ? '0%' : rateFormat((votes / item.votes) * 100),
         isWinner: votes === maxVotes,
         votes,
       })),

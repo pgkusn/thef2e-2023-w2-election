@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 useHead({
-  title: '2020臺灣總統大選情報站',
+  title: '2024臺灣總統大選情報站',
   link: [
     { rel: 'apple-touch-icon', sizes: '76x76', href: '/images/apple-touch-icon.png' },
     { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/images/favicon-32x32.png' },
@@ -23,9 +23,9 @@ watch(
 <template>
   <header>
     <hgroup class="p5 text-center md:p6">
-      <h1 class="text-8 font-700 md:text-10">2020<br class="md:hidden" />臺灣總統大選情報站</h1>
+      <h1 class="text-8 font-700 md:text-10">2024<br class="md:hidden" />臺灣總統大選情報站</h1>
       <h2 class="text-3 mt2 md:(text-base font-700)">
-        2020 Taiwan Presidential Election Information Station
+        2024 Taiwan Presidential Election Information Station
       </h2>
     </hgroup>
     <div class="bg-theme-warning relative px4 py2 flex justify-end md:justify-center md:py3">
@@ -61,7 +61,7 @@ watch(
 
 <style>
 #__nuxt {
-  height: 100dvh;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
 }

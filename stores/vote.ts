@@ -1,31 +1,32 @@
 import * as Types from '@/types'
 
 export const useVoteStore = defineStore('vote', () => {
+  // TODO: 換政黨顏色
   // 候選人
   const candidateList = [
     {
       no: 1,
-      name: '雅娜',
+      name: '柯文哲',
       partyId: 1,
-      partyColor: '#FBD189',
-      partyName: '金色曠野同盟',
-      partyShortName: '野',
+      partyColor: '#9AE2E9',
+      partyName: '台灣民眾黨',
+      partyShortName: '眾',
     },
     {
       no: 2,
-      name: '喬治',
+      name: '賴清德',
       partyId: 2,
-      partyColor: '#97C6ED',
-      partyName: '蔚藍海岸陣線',
-      partyShortName: '海',
+      partyColor: '#93E0C0',
+      partyName: '民主進步黨',
+      partyShortName: '民',
     },
     {
       no: 3,
-      name: '賽門',
+      name: '侯友宜',
       partyId: 3,
-      partyColor: '#B8D8BA',
-      partyName: '鬱蔥雨林聯盟',
-      partyShortName: '林',
+      partyColor: '#84AAE2',
+      partyName: '中國國民黨',
+      partyShortName: '中',
     },
   ]
   // 總得票數
@@ -40,9 +41,9 @@ export const useVoteStore = defineStore('vote', () => {
    */
   const getTotalVotes = async () => {
     if (totalVotes.value) return
-    const { data, error } = (await useFetch('/api/votes/all')) as {
+    const { data, error } = (await useFetch('/api/votes/2024/all')) as {
       data: Ref<Types.ApiAllVote>
-      error: Ref<Types.FetchError>
+      error: Ref<Types.ApiFetchError>
     }
     if (!data.value) {
       throw createError({
@@ -57,9 +58,9 @@ export const useVoteStore = defineStore('vote', () => {
    */
   const getAllCityVotes = async () => {
     if (allCityVotes.value) return
-    const { data, error } = (await useFetch('/api/votes/city')) as {
+    const { data, error } = (await useFetch('/api/votes/2024/city')) as {
       data: Ref<Types.ApiAllCityVote[]>
-      error: Ref<Types.FetchError>
+      error: Ref<Types.ApiFetchError>
     }
     if (!data.value) {
       throw createError({
@@ -74,9 +75,9 @@ export const useVoteStore = defineStore('vote', () => {
    * @param {string} city 縣市代碼
    */
   const getCityVotes = async (city: string) => {
-    const { data, error } = (await useFetch(`/api/votes/${city}`)) as {
+    const { data, error } = (await useFetch(`/api/votes/2024/${city}`)) as {
       data: Ref<Types.ApiCityVote>
-      error: Ref<Types.FetchError>
+      error: Ref<Types.ApiFetchError>
     }
     if (!data.value) {
       throw createError({

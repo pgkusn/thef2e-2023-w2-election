@@ -38,7 +38,7 @@ const cardData = computed(() => {
         partyName: voteStore.candidateList[index].partyShortName,
         partyColor: voteStore.candidateList[index].partyColor,
         name: voteStore.candidateList[index].name,
-        percent: index === 0 ? 0 : rateFormat((votes / item.votes) * 100),
+        percent: index === 0 ? '0%' : rateFormat((votes / item.votes) * 100),
         isWinner: votes === maxVotes,
         votes,
       })),

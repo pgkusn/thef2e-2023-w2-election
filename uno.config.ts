@@ -30,9 +30,9 @@ export default defineConfig({
         dark: '#222',
       },
       party: {
-        1: '#FBD189',
-        2: '#97C6ED',
-        3: '#B8D8BA',
+        1: '#9AE2E9',
+        2: '#93E0C0',
+        3: '#84AAE2',
       },
     },
   },

@@ -10,11 +10,9 @@ export const useGlobalStore = defineStore('global', () => {
     if (cities.value) return
     const { data, error } = (await useFetch('/api/cityList')) as {
       data: Ref<Types.ApiCity[]>
-      error: Ref<Types.FetchError>
+      error: Ref<Types.ApiFetchError>
     }
     if (!data.value) {
-      console.dir(error.value)
-
       throw createError({
         statusCode: error.value.statusCode,
         statusMessage: error.value.statusMessage,

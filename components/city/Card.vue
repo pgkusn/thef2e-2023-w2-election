@@ -31,15 +31,16 @@ const pieChartData = computed(() => {
         </div>
       </div>
 
-      <p class="text-5 font-600 leading-none text-center my4">開票率：{{ data.rate }}</p>
+      <p class="text-5 font-600 leading-none text-center my4">開票率：100%</p>
 
       <ul>
         <li
           v-for="item in data.candidate"
-          class="px4 py2 flex items-center gap-x2 border-b border-#DEE2E6 leading-none before:(content-[attr(data-party)] w5 h5 rounded-full leading-5 text-center text-3)"
-          :class="`before:bg-party-${item.partyId}`"
-          :data-party="item.partyName"
+          class="px4 py2 flex items-center gap-x2 border-b border-#DEE2E6 leading-none"
         >
+          <ClientOnly>
+            <img :src="getImageUrl(`party_${item.partyId}.svg`)" alt="" class="w5 h5" />
+          </ClientOnly>
           <p class="my4 text-5 font-600 text-center text-#525B76">{{ item.name }}</p>
           <Icon v-if="item.isWinner" name="VoteStamp" size="18px" />
           <span class="ml-auto text-#525B76">{{ item.votes.toLocaleString() }}</span>

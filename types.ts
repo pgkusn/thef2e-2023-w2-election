@@ -1,7 +1,3 @@
-export interface FetchError {
-  statusCode: number
-  statusMessage: string
-}
 export interface ApiCity {
   CityID: string
   CityName: string
@@ -11,81 +7,85 @@ export interface ApiCity {
   Version: string
 }
 export interface ApiAllVote {
-  candidate_1: string
-  candidate_2: string
-  candidate_3: string
-  valid_votes: string
-  invalid_votes: string
-  votes: string
-  rate: string
+  candidate_1: string // 1號候選人得票數
+  candidate_2: string // 2號候選人得票數
+  candidate_3: string // 3號候選人得票數
+  valid_votes: string // 有效票數
+  invalid_votes: string // 無效票數
+  votes: string // 投票數
+  rate: string // 投票率
 }
 export interface ApiAllCityVote {
-  city_code: string
-  city_name: string
-  candidate_1: string
-  candidate_2: string
-  candidate_3: string
-  valid_votes: string
-  invalid_votes: string
-  votes: string
-  rate: string
+  city_code: string // 縣市代碼
+  city_name: string // 縣市名稱
+  candidate_1: string // 1號候選人得票數
+  candidate_2: string // 2號候選人得票數
+  candidate_3: string // 3號候選人得票數
+  valid_votes: string // 有效票數
+  invalid_votes: string // 無效票數
+  votes: string // 投票數
+  rate: string // 投票率
 }
 export interface ApiCityVote {
-  city_code: string
-  city_name: string
-  candidate_1: string
-  candidate_2: string
-  candidate_3: string
-  valid_votes: string
-  invalid_votes: string
-  votes: string
-  rate: string
+  city_code: string // 縣市代碼
+  city_name: string // 縣市名稱
+  candidate_1: string // 1號候選人得票數
+  candidate_2: string // 2號候選人得票數
+  candidate_3: string // 3號候選人得票數
+  valid_votes: string // 有效票數
+  invalid_votes: string // 無效票數
+  votes: string // 投票數
+  rate: string // 投票率
   dist: {
-    dist_name: string
-    candidate_1: string
-    candidate_2: string
-    candidate_3: string
-    valid_votes: string
-    invalid_votes: string
-    votes: string
-    rate: string
+    dist_name: string // 行政區名稱
+    candidate_1: string // 1號候選人得票數
+    candidate_2: string // 2號候選人得票數
+    candidate_3: string // 3號候選人得票數
+    valid_votes: string // 有效票數
+    invalid_votes: string // 無效票數
+    votes: string // 投票數
+    rate: string // 投票率
   }[]
+}
+export interface ApiFetchError {
+  statusCode: number
+  statusMessage: string
 }
 export interface City {
   name: string
   value: string
 }
 export interface TotalVotes {
-  validVotes: number
-  invalidVotes: number
-  votes: number
-  rate: number
-  candidate: number[]
+  validVotes: number // 有效票數
+  invalidVotes: number // 無效票數
+  votes: number // 投票數
+  rate: number // 投票率
+  candidate: number[] // 候選人得票數
 }
 export interface AllCityVotes {
-  cityCode: string
-  cityName: string
-  validVotes: number
-  invalidVotes: number
-  votes: number
-  rate: number
-  candidate: number[]
+  cityCode: string // 縣市代碼
+  cityName: string // 縣市名稱
+  validVotes: number // 有效票數
+  invalidVotes: number // 無效票數
+  votes: number // 投票數
+  rate: number // 投票率
+  candidate: number[] // 候選人得票數
 }
 export interface CityVotes {
-  cityCode: string
-  cityName: string
-  validVotes: number
-  invalidVotes: number
-  votes: number
-  rate: number
-  candidate: number[]
+  cityCode: string // 縣市代碼
+  cityName: string // 縣市名稱
+  validVotes: number // 有效票數
+  invalidVotes: number // 無效票數
+  votes: number // 投票數
+  rate: number // 投票率
+  candidate: number[] // 候選人得票數
   dist: {
-    distName: string
-    validVotes: number
-    invalidVotes: number
-    votes: number
-    rate: number
-    candidate: number[]
+    distName: string // 行政區名稱
+    validVotes: number // 有效票數
+    invalidVotes: number // 無效票數
+    votes: number // 投票數
+    rate: number // 投票率
+    candidate: number[] // 候選人得票數
   }[]
 }
 export interface CityGroup {
@@ -116,7 +116,7 @@ export interface Card {
     partyName: string
     partyColor: string
     name: string
-    percent: number
+    percent: string
     isWinner: boolean
     votes: number
   }[]
