@@ -1,75 +1,11 @@
-# Nuxt 3 Minimal Starter
+# 總統即時開票全台地圖
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+採用 Nuxt3 框架建置的 2024 總統大選開票網站，透過 Nuxt3 提供的 Server API 功能，將中選會提供的投票資料轉換成 RESTful API 供網站使用，使用者可透過由 D3.js 開發的各式圖表，查看各縣市和行政區的投票數據分佈。
 
-## Setup
+## 使用技術
 
-Make sure to install the dependencies:
+Vue3, TypeScript, UnoCSS, D3.js, Vite
 
-```bash
-# npm
-npm install
+## 設計稿
 
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+https://reurl.cc/orOy95
