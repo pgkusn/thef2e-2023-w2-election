@@ -8,7 +8,7 @@ export const useGlobalStore = defineStore('global', () => {
    */
   const getCities = async () => {
     if (cities.value) return
-    const { data, error } = (await useFetch('/api/cityList')) as {
+    const { data, error } = (await useFetch('/api/city')) as {
       data: Ref<Types.ApiCity[]>
       error: Ref<Types.ApiFetchError>
     }

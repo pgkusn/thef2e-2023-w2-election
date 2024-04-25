@@ -1,7 +1,6 @@
 import * as Types from '@/types'
 
 export const useVoteStore = defineStore('vote', () => {
-  // TODO: 換政黨顏色
   // 候選人
   const candidateList = [
     {
@@ -41,8 +40,8 @@ export const useVoteStore = defineStore('vote', () => {
    */
   const getTotalVotes = async () => {
     if (totalVotes.value) return
-    const { data, error } = (await useFetch('/api/votes/2024/all')) as {
-      data: Ref<Types.ApiAllVote>
+    const { data, error } = (await useFetch('/api/totalVote')) as {
+      data: Ref<Types.ApiAllVote[]>
       error: Ref<Types.ApiFetchError>
     }
     if (!data.value) {
@@ -51,14 +50,15 @@ export const useVoteStore = defineStore('vote', () => {
         statusMessage: error.value.statusMessage,
       })
     }
-    totalVotes.value = apiAdapter.getTotalVotes(data.value)
+    totalVotes.value = apiAdapter.getTotalVotes(data.value[0])
   }
+
   /**
    * 取得各縣市得票數
    */
   const getAllCityVotes = async () => {
     if (allCityVotes.value) return
-    const { data, error } = (await useFetch('/api/votes/2024/city')) as {
+    const { data, error } = (await useFetch('/api/allCityVote')) as {
       data: Ref<Types.ApiAllCityVote[]>
       error: Ref<Types.ApiFetchError>
     }
@@ -70,13 +70,14 @@ export const useVoteStore = defineStore('vote', () => {
     }
     allCityVotes.value = apiAdapter.getAllCityVotes(data.value)
   }
+
   /**
    * 取得單一縣市與行政區得票數
    * @param {string} city 縣市代碼
    */
   const getCityVotes = async (city: string) => {
-    const { data, error } = (await useFetch(`/api/votes/2024/${city}`)) as {
-      data: Ref<Types.ApiCityVote>
+    const { data, error } = (await useFetch(`/api/cityVote/${city}`)) as {
+      data: Ref<Types.ApiCityVote[]>
       error: Ref<Types.ApiFetchError>
     }
     if (!data.value) {
@@ -85,7 +86,7 @@ export const useVoteStore = defineStore('vote', () => {
         statusMessage: error.value.statusMessage,
       })
     }
-    cityVotes.value = apiAdapter.getCityVotes(data.value)
+    cityVotes.value = apiAdapter.getCityVotes(data.value[0])
   }
 
   return {
