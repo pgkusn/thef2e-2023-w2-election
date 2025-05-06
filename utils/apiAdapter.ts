@@ -37,6 +37,8 @@ export const apiAdapter = {
       rate: Number(data.rate),
       candidate: [Number(data.candidate_1), Number(data.candidate_2), Number(data.candidate_3)],
       dist: data.dist.map(item => ({
+        cityCode: data.city_code,
+        cityName: data.city_name,
         distName: item.dist_name,
         validVotes: Number(item.valid_votes),
         invalidVotes: Number(item.invalid_votes),
